@@ -3,5 +3,6 @@
 /build
 /dist
 .env
-yarn.lock
+node_modules
 package-lock.json
+yarn.lock

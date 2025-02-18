@@ -4,9 +4,14 @@
     "target": "es2020",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "outDir": "./build",
   },
-  "types": ["reflect-metadata", "mocha"],
+  "types": [
+    "reflect-metadata",
+    "mocha"
+  ],
   "exclude": [
     "node_modules"
   ]
