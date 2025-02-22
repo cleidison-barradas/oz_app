@@ -16,20 +16,6 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
 
-  app:
-    image: node:20.17.0
-    networks:
-      - mongo_network
-    working_dir: /var/www/app
-    container_name: app
-    command: bash -c "npm i && npm run start:dev"
-    ports:
-      - ${HTTP_SERVER_PORT}:${HTTP_SERVER_PORT}
-    volumes:
-      - .:/var/www/app
-    depends_on:
-      - mongodb
-
 networks:
   mongo_network:
     driver: bridge
