@@ -7,7 +7,7 @@ export function errorHandlerMiddleware(
   err: IAppError,
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   const status = err.statusCode || HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR;
   const message = err.message || "An unexpected error occurred";

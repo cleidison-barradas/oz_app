@@ -12,7 +12,6 @@ app.use(express.json());
 app.use(morganConfig(logger));
 
 app.use("/api", routes);
-
 app.use(errorHandlerMiddleware);
 
 export default app;

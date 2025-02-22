@@ -7,6 +7,8 @@ import makeUpdateUserUseCase from "../../use-cases/factories/make-update-user.us
 
 import { HTTP_STATUS_CODE } from "../../utils/constants";
 import { CreateUserDTO, UpdateUserDTO } from "../../interfaces/user.dto";
+import { yupHandlerMiddleware } from "../middleware/yupHandler.middleware";
+import { CreateUserSchema, UpdateUserSchema } from "../../schemas/user.schemas";
 
 const router = Router();
 
@@ -26,7 +28,7 @@ router.get("/", async (req, res) => {
   });
 });
 
-router.post("/", async (req, res) => {
+router.post("/", yupHandlerMiddleware(CreateUserSchema), async (req, res) => {
   const { name, email, address, coordinates } = req.body as CreateUserDTO;
 
   const usecase = makeCreateUserUseCase();
@@ -49,7 +51,7 @@ router.post("/", async (req, res) => {
   });
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", yupHandlerMiddleware(UpdateUserSchema), async (req, res) => {
   const { name, address, coordinates } = (await req.body) as UpdateUserDTO;
   const id = req.params.id;
 
