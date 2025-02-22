@@ -15,7 +15,7 @@ export class UpdateRegionUseCase {
 
   async execute(id: string, data: UpdateRegionDTO): Promise<Result<IRegion>> {
     try {
-      let auxData = {};
+      const auxData = {};
 
       let response = await this.repository.getRegionById(id);
 

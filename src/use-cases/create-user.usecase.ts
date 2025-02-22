@@ -16,9 +16,9 @@ export class CreateUserUseCase {
 
   async execute(data: CreateUserDTO): Promise<Result<IUser>> {
     try {
-      let { name, email, address = null, coordinates = null } = data;
+      const { name, email } = data;
 
-      let userExists = await this.usersRepository.getUserByEmail(email);
+      const userExists = await this.usersRepository.getUserByEmail(email);
 
       if (userExists.data) {
         return {
@@ -30,23 +30,17 @@ export class CreateUserUseCase {
         };
       }
 
-      if (address) {
-        coordinates = await this.geolocationService.getCoordinatesFromAddress(
-          address
-        );
+      if (data?.address) {
+        data.coordinates =
+          await this.geolocationService.getCoordinatesFromAddress(data.address);
       } else {
-        address = await this.geolocationService.getAddressFromCoordinates(
-          coordinates.lat,
-          coordinates.lng
+        data.address = await this.geolocationService.getAddressFromCoordinates(
+          data.coordinates.lat,
+          data.coordinates.lng
         );
       }
 
-      const response = await this.usersRepository.createUser({
-        name,
-        email,
-        address,
-        coordinates,
-      });
+      const response = await this.usersRepository.createUser(data);
 
       return response;
     } catch (error) {

@@ -65,7 +65,7 @@ describe("CreateUserUseCase", () => {
     expect(response.success).toBe(true);
   });
 
-  it("should not be to create a new user with the same email  ", async () => {
+  it("should not be to create a new user with the same email", async () => {
     await createUserUseCase.execute({
       email,
       name,

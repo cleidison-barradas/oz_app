@@ -15,9 +15,9 @@ export class UpdateUserUseCase {
 
   async execute(id: string, data: UpdateUserDTO): Promise<Result<IUser>> {
     try {
-      let auxData = {};
+      const auxData = {};
 
-      let userExists = await this.usersRepository.getUserById(id);
+      const userExists = await this.usersRepository.getUserById(id);
 
       if (!userExists.data) {
         return {

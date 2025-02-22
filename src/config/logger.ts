@@ -9,7 +9,7 @@ const logger = createLogger({
     timestamp({
       format: "DD/MM/YYYY-HH:mm:ss",
     }),
-    json()
+    json(),
   ),
   transports: [new transports.Console()],
 });

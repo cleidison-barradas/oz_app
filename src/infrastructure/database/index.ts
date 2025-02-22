@@ -34,21 +34,17 @@ export default async function connectDatabase(): Promise<void> {
     const files = fs.readdirSync(modelsPath);
 
     for await (const file of files) {
-      try {
-        if (file.endsWith(".model.ts") || file.endsWith(".model.js")) {
-          const modelSchema = require(path.join(modelsPath, file)).default;
+      if (file.endsWith(".model.ts") || file.endsWith(".model.js")) {
+        const modelSchema = require(path.join(modelsPath, file)).default;
 
-          const model = database.model(
-            modelSchema._schemaName.toLowerCase(),
-            modelSchema._schemaDefinition
-          );
+        const model = database.model(
+          modelSchema._schemaName.toLowerCase(),
+          modelSchema._schemaDefinition
+        );
 
-          modelSchema._setModel(model);
+        modelSchema._setModel(model);
 
-          await model.syncIndexes();
-        }
-      } catch (error) {
-        throw error;
+        await model.syncIndexes();
       }
     }
   } catch (error) {
