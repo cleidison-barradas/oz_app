@@ -55,6 +55,7 @@
     "@types/reflect-metadata": "^0.1.0",
     "@types/sinon": "^10.0.17",
     "@types/supertest": "^2.0.13",
+    "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.8",
     "eslint": "^9.21.0",
     "eslint-config-prettier": "^10.0.1",
