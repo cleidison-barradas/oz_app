@@ -15,5 +15,6 @@ export default {
   geocoding: {
     geocoding_api_url: process.env.GEOCODING_API_URL,
     reverse_geocoding_api_url: process.env.REVERSE_API_URL,
+    geocoding_api_key: process.env.GEOCODING_API_TOKEN,
   },
 };

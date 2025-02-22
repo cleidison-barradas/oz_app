@@ -7,7 +7,8 @@ export default function makeCreateUserUseCase() {
   const usersRepository = new MongoUsersRepository();
   const geolocationService = new GeolocationService(
     config.geocoding.geocoding_api_url,
-    config.geocoding.reverse_geocoding_api_url
+    config.geocoding.reverse_geocoding_api_url,
+    config.geocoding.geocoding_api_key,
   );
 
   return new CreateUserUseCase(usersRepository, geolocationService);
