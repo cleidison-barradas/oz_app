@@ -4,31 +4,74 @@
   "description": "DevOZ - Tech test",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.ts",
-    "test": "mocha --require ts-node/register ./src/**/*.spec.ts --exit"
+    "build": "rimraf build && tsc",
+    "start": "node build/server.js",
+    "start:dev": "NODE_ENV=development tsx watch src/server.ts",
+    "test": "jest",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "prettier:check": "prettier --check .",
+    "prettier:fix": "prettier --write ."
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "prettier --write . && git add -A .",
+      "applypatch-msg": "echo [Husky] applypatch-msg",
+      "pre-applypatch": "echo [Husky] pre-applypatch",
+      "post-applypatch": "echo [Husky] post-applypatch"
+    }
+  },
+  "lint-staged": {
+    "*": "prettier --write"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@faker-js/faker": "^8.1.0",
+    "@turf/turf": "^7.2.0",
     "@typegoose/typegoose": "^11.5.0",
     "chai": "^4.3.10",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.18.2",
-    "mongoose": "^7.5.3"
+    "husky": "^9.1.7",
+    "mongoose": "^7.5.3",
+    "mongoose-paginate-v2": "^1.9.0",
+    "morgan": "^1.10.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "winston": "^3.17.0",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.21.0",
     "@types/chai": "^4.3.6",
+    "@types/cors": "^2.8.17",
     "@types/express": "^4.17.18",
+    "@types/jest": "^29.5.14",
     "@types/mocha": "^10.0.2",
+    "@types/morgan": "^1.9.9",
     "@types/node": "^20.8.0",
     "@types/reflect-metadata": "^0.1.0",
     "@types/sinon": "^10.0.17",
     "@types/supertest": "^2.0.13",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
+    "eslint": "^9.21.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-jest": "^28.11.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "globals": "^16.0.0",
+    "jest": "^29.7.0",
     "mocha": "^10.2.0",
-    "nodemon": "^3.0.1",
+    "prettier": "3.5.2",
+    "rimraf": "^6.0.1",
     "sinon": "^16.0.0",
     "supertest": "^6.3.3",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.2.2"
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.2.2",
+    "typescript-eslint": "^8.24.1"
   }
 }
