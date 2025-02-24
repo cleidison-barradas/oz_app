@@ -10,20 +10,43 @@ export const CreateUserSchema = Yup.object()
       lng: Yup.number(),
     }),
   })
-  .test("only-fill-one", "Only fill one of address or coordinates", (data) => {
-    const hasAddress = Boolean(data.address);
-    const hasCoordinates = Boolean(data.coordinates);
+  .test(
+    "only-fill-one",
+    "fill only one, address or coordinates but not both",
+    (data) => {
+      const hasAddress = Boolean(data?.address);
+      const hasCoordinates = Boolean(
+        data?.coordinates.lat && data?.coordinates.lng,
+      );
 
-    return !hasAddress || !hasCoordinates;
-  });
+      if (hasAddress && hasCoordinates) return false;
 
-export const UpdateUserSchema = Yup.object().shape({
-  name: Yup.string().nullable(),
-  address: Yup.string().nullable(),
-  coordinates: Yup.object()
-    .shape({
+      if (!hasAddress && !hasCoordinates) return false;
+
+      return true;
+    },
+  );
+
+export const UpdateUserSchema = Yup.object()
+  .shape({
+    name: Yup.string().nullable(),
+    address: Yup.string().nullable(),
+    coordinates: Yup.object().nullable().shape({
       lat: Yup.number(),
       lng: Yup.number(),
-    })
-    .nullable(),
-});
+    }),
+  })
+  .test(
+    "only-fill-one",
+    "fill only one, address or coordinates but not both",
+    (data) => {
+      const hasAddress = Boolean(data?.address);
+      const hasCoordinates = Boolean(
+        data?.coordinates.lat && data?.coordinates.lng,
+      );
+
+      if (hasAddress && hasCoordinates) return false;
+
+      return true;
+    },
+  );

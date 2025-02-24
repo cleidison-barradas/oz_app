@@ -52,7 +52,7 @@ router.post("/", yupHandlerMiddleware(CreateUserSchema), async (req, res) => {
 });
 
 router.put("/:id", yupHandlerMiddleware(UpdateUserSchema), async (req, res) => {
-  const { name, address, coordinates } = (await req.body) as UpdateUserDTO;
+  const { name, address, coordinates } = req.body as UpdateUserDTO;
   const id = req.params.id;
 
   const usecase = makeUpdateUserUseCase();

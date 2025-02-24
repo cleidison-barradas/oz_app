@@ -9,7 +9,11 @@ export const yupHandlerMiddleware =
       next();
     } catch (error) {
       res.status(400).json({
-        errors: error.errors,
+        success: false,
+        error: {
+          code: 400,
+          message: error.errors,
+        },
       });
     }
   };

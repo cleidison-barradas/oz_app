@@ -11,14 +11,12 @@ import { GeolocationService } from "../services/geolocation.service";
 export class CreateUserUseCase {
   constructor(
     private usersRepository: IUsersRepository,
-    private geolocationService: GeolocationService
+    private geolocationService: GeolocationService,
   ) {}
 
   async execute(data: CreateUserDTO): Promise<Result<IUser>> {
     try {
-      const { name, email } = data;
-
-      const userExists = await this.usersRepository.getUserByEmail(email);
+      const userExists = await this.usersRepository.getUserByEmail(data.email);
 
       if (userExists.data) {
         return {
@@ -33,11 +31,19 @@ export class CreateUserUseCase {
       if (data?.address) {
         data.coordinates =
           await this.geolocationService.getCoordinatesFromAddress(data.address);
-      } else {
+      } else if (data?.coordinates) {
         data.address = await this.geolocationService.getAddressFromCoordinates(
           data.coordinates.lat,
-          data.coordinates.lng
+          data.coordinates.lng,
         );
+      } else {
+        return {
+          success: false,
+          error: {
+            code: HTTP_STATUS_CODE.MISSING_ADDRESS_OR_COORDINATES,
+            message: "Missing address or coordinates",
+          },
+        };
       }
 
       const response = await this.usersRepository.createUser(data);

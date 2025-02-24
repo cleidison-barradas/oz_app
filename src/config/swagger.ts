@@ -379,7 +379,7 @@ const options: swaggerJsonDoc.Options = {
               content: {
                 "application/json": {
                   schema: {
-                    $ref: "#/components/schemas/ResponseUpdatedUser",
+                    $ref: "#/components/schemas/ResponseUpdatedRegion",
                   },
                 },
               },
@@ -436,7 +436,7 @@ const options: swaggerJsonDoc.Options = {
               content: {
                 "application/json": {
                   schema: {
-                    $ref: "#/components/schemas/response_region_delete",
+                    $ref: "#/components/schemas/ResponseDeletedRegion",
                   },
                 },
               },
@@ -528,16 +528,7 @@ const options: swaggerJsonDoc.Options = {
           $ref: "#/components/schemas/user",
         },
         RequestUpdateUser: {
-          type: "object",
-          properties: {
-            success: {
-              type: "boolean",
-              example: true,
-            },
-            data: {
-              $ref: "#/components/schemas/user",
-            },
-          },
+          $ref: "#/components/schemas/user",
         },
         ResponseListUsers: {
           type: "object",
@@ -594,7 +585,7 @@ const options: swaggerJsonDoc.Options = {
         RequestRegionCreate: {
           $ref: "#/components/schemas/region",
         },
-        RequestRegionUpdate: {
+        RequestUpdateRegion: {
           type: "object",
           properties: {
             name: {
@@ -603,6 +594,43 @@ const options: swaggerJsonDoc.Options = {
             },
             coordinates: {
               $ref: "#/components/schemas/coordinates",
+            },
+          },
+        },
+        ResponseUpdatedRegion: {
+          type: "object",
+          properties: {
+            success: {
+              type: "boolean",
+              example: true,
+            },
+            data: {
+              $ref: "#/components/schemas/geometry",
+            },
+          },
+        },
+        ResponseRegionCreated: {
+          type: "object",
+          properties: {
+            success: {
+              type: "boolean",
+              example: true,
+            },
+            data: {
+              $ref: "#/components/schemas/region",
+            },
+          },
+        },
+        ResponseDeletedRegion: {
+          type: "object",
+          properties: {
+            success: {
+              type: "boolean",
+              example: true,
+            },
+            data: {
+              type: "string",
+              example: "67ba475958c3d8f671015d61",
             },
           },
         },
